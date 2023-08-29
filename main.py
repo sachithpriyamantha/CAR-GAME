@@ -19,3 +19,25 @@ green = (76, 208, 56)
 red = (200, 0, 0)
 white = (255, 255, 255)
 yellow = (255, 232, 0)
+
+
+#game setting
+gameover = False
+speed = 2
+score = 0
+
+#game loop
+clock = pygame.time.Clock()
+fps = 120
+running = True
+while running:
+    clock.tick(fps)
+
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            running = False
+    
+
+    pygame.display.update()
+
+pygame.quit()
