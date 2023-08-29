@@ -46,6 +46,36 @@ lanes = [left_lane, center_lane, right_lane]
 #for animating movement of the lane marker
 lane_marker_move_y = 0
 
+class Vehical(pygame.sprite.Sprite):
+
+    def __init__(self, image, x, y):
+        pygame.sprite.Sprite.__init__(self)
+
+
+        #scale the image down so if fits in the lane
+        image_scale = 45 / image.get_rect().width
+        new_width = image.get_rect().width * image_scale
+        new_height = image.get_rect().height * image_scale
+        self.image = pygame.transform.scale(image, (new_width, new_height))
+
+        self.rect = self.image.get_rect()
+        self.rect.center = [x, y]
+
+class PlayerVehical(Vehical):
+    def __init__(self, x, y):
+        image = pygame.image.load('images/car.png')
+        super().__init__(image, x, y)
+
+#player's starting coodinates
+player_x = 250
+player_y = 410
+
+
+#create the player's car
+player_group = pygame.sprite.Group()
+player = PlayerVehical(player_x, player_y)
+player_group.add(player)
+
 #game loop
 clock = pygame.time.Clock()
 fps = 120
@@ -70,9 +100,16 @@ while running:
 
 
     #draw the lane marker
+    lane_marker_move_y += speed * 2
+    if lane_marker_move_y >= marker_height * 2:
+        lane_marker_move_y = 0
     for y in range(marker_height * -2, height, marker_height * 2):
         pygame.draw.rect(screan, white, (left_lane + 45, y+ lane_marker_move_y, marker_width, marker_height))
         pygame.draw.rect(screan, white, (center_lane + 45, y + lane_marker_move_y, marker_width, marker_height))
+
+
+    #draw the player's car
+    player_group.draw(screan)
 
     pygame.display.update()
 
