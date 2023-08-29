@@ -38,6 +38,9 @@ while running:
             running = False
     
 
+    #drow the grass
+    screan.fill(green)
+
     pygame.display.update()
 
 pygame.quit()
