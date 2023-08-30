@@ -76,6 +76,13 @@ player_group = pygame.sprite.Group()
 player = PlayerVehical(player_x, player_y)
 player_group.add(player)
 
+#load the other vehical
+image_filename = ['truck.png', 'semi_trailer.png', 'taxi.png', 'van.png']
+vehical_image = []
+for image_filename in image_filename:
+    image = pygame.image.load('')
+
+
 #game loop
 clock = pygame.time.Clock()
 fps = 120
@@ -86,6 +93,14 @@ while running:
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
+
+
+        #move the players car using the left keys
+        if event.type == KEYDOWN:
+            if event.key == K_LEFT and player.rect.center[0] > left_lane:
+                player.rect.x -= 100
+            elif event.key == K_RIGHT and player.rect.center[0] < right_lane:
+                player.rect.x += 100
     
 
     #drow the grass
