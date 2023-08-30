@@ -80,7 +80,11 @@ player_group.add(player)
 image_filename = ['truck.png', 'semi_trailer.png', 'taxi.png', 'van.png']
 vehical_image = []
 for image_filename in image_filename:
-    image = pygame.image.load('')
+    image = pygame.image.load('images/' + image_filename)
+    vehical_image.append(image)
+
+#sprite group for vehical
+vehical_group = pygame.sprite.Group()
 
 
 #game loop
@@ -125,6 +129,46 @@ while running:
 
     #draw the player's car
     player_group.draw(screan)
+
+
+    #add up to two vehical
+    if len(vehical_group) < 2:
+        add_vehical = True
+        for vehical in vehical_group:
+            if vehical.rect.top < vehical.rect.height * 1.5:
+                add_vehical = False
+
+        if add_vehical:
+
+            #select random lane
+            lane = random.choice(lanes)
+
+            #select a random vehical image
+            image = random.choice(vehical_image)
+            vehical = Vehical(image, lane, height / -2)
+            vehical_group.add(vehical)
+
+
+
+    #make the vehical move
+    for vehical in vehical_group:
+        vehical.rect.y += speed
+
+        #remove the vehical once it goes off screan
+
+        if vehical.rect.top >= height:
+            vehical.kill()
+
+            #add to score
+            score += 1
+
+            #speed up the game after passing 5 vehicals
+            if score > 0 and score % 5 == 0:
+                speed += 1
+
+    #draw the vehicals
+    vehical_group.draw(screan)
+
 
     pygame.display.update()
 
