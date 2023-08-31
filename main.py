@@ -87,6 +87,11 @@ for image_filename in image_filename:
 vehical_group = pygame.sprite.Group()
 
 
+#load the crash image
+crash = pygame.image.load('images/crash.png')
+crash_rect = crash.get_rect()
+
+
 #game loop
 clock = pygame.time.Clock()
 fps = 120
@@ -105,6 +110,21 @@ while running:
                 player.rect.x -= 100
             elif event.key == K_RIGHT and player.rect.center[0] < right_lane:
                 player.rect.x += 100
+
+            
+            #check if theres a side swip collision ofer changing lanes
+            for vehical in vehical_group:
+                if pygame.sprite.collide_rect(player, vehical):
+
+                    gameover = True
+
+                    #place the players car next to other vehical
+                    if event.key == K_LEFT:
+                        player.rect.left = vehical.rect.right
+                        crash_rect.center = [player.rect.left, (player.rect.center[1] + vehical.rect.center[1]) / 2]
+                    elif event.key == K_RIGHT:
+                        player.rect.right = vehical.rect.left
+                        crash_rect.center = [player.rect.right, (player.rect.center[1] + vehical.rect.center[1]) / 2]
     
 
     #drow the grass
