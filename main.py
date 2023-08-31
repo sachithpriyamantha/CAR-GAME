@@ -169,6 +169,14 @@ while running:
     #draw the vehicals
     vehical_group.draw(screan)
 
+    #display the score
+    font = pygame.font.Font(pygame.font.get_default_font(), 16)
+    text = font.render('Score: ' + str(score), True, white)
+    text_rect = text.get_rect()
+    text_rect.center = (50, 450)
+    screan.blit(text, text_rect)
+
+
 
     pygame.display.update()
 
