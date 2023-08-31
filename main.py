@@ -197,6 +197,23 @@ while running:
     screan.blit(text, text_rect)
 
 
+    #check if there a head on collision
+    if pygame.sprite.spritecollide(player, vehical_group, True):
+        gameover = True
+        crash_rect.center = [player.rect.center[0], player.rect.top]
+
+    #display game over
+    if gameover:
+        screan.blit(crash, crash_rect)
+
+        pygame.draw.rect(screan, red, (0, 50, width, 100))
+
+        font = pygame.font.Font(pygame.font.get_default_font(), 16)
+        text = font.render('Game over. Play again? (Enter Y or N)', True, white)
+        text_rect.center = (width / 2, 100)
+        screan.blit(text, text_rect)
+
+
 
     pygame.display.update()
 
