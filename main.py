@@ -209,7 +209,7 @@ while running:
         pygame.draw.rect(screan, red, (0, 50, width, 100))
 
         font = pygame.font.Font(pygame.font.get_default_font(), 16)
-        text = font.render('Game over. Play again? (Enter Y or N)', True, white)
+        text = font.render('Game over. Play again? (Enter y or n)', True, white)
         text_rect.center = (width / 2, 100)
         screan.blit(text, text_rect)
 
@@ -227,6 +227,19 @@ while running:
             if event.type == QUIT:
                 gameover = False
                 running = False
+
+            # players input (y or n)
+            if event.type == KEYDOWN:
+                if event.key == K_y:
+                    #reset the game
+                    speed = 2
+                    score = 0
+                    vehical_group.empty()
+                    player.rect.center = [player_x, player_y]
+                elif event.key == K_n:
+                    #exit the loops
+                    gameover = False
+                    running = False
 
 
 pygame.quit()
