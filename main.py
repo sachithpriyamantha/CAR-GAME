@@ -217,4 +217,16 @@ while running:
 
     pygame.display.update()
 
+    #crash and play again
+    while gameover:
+
+        clock.tick(fps)
+
+        for event in pygame.event.get():
+
+            if event.type == QUIT:
+                gameover = False
+                running = False
+
+
 pygame.quit()
